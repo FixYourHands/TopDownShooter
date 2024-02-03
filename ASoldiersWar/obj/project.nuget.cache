@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "dBFCB6st3xtbALTyg6RITFR10/s4khsaijj4Rk05ZAiaLL5VSjfJaZgpgDqjsZeoHywJ3D8hg3iZQLUoA5iiFw==",
+  "success": true,
+  "projectFilePath": "F:\\Programming\\Github\\TopDownShooter\\ASoldiersWar\\ASoldiersWar.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Azjae\\.nuget\\packages\\monogame.content.builder.task\\3.8.1.303\\monogame.content.builder.task.3.8.1.303.nupkg.sha512",
+    "C:\\Users\\Azjae\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.1.303\\monogame.framework.desktopgl.3.8.1.303.nupkg.sha512"
+  ],
+  "logs": []
+}
