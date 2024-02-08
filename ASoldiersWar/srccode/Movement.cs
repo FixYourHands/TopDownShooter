@@ -17,7 +17,7 @@ namespace ConsoleApp1
         }
         public Soldier soldier { get; set; }
         public GameGrid grid { get; set; }
-
+        /*
         public Movement(Soldier soldier,GameGrid grid)
         {
             this.soldier = soldier;
@@ -90,7 +90,8 @@ namespace ConsoleApp1
             }
             return false;
         }
-
+        */
+        /*
         private void PlaceCharacter()
         {
             //if placeable
@@ -102,5 +103,6 @@ namespace ConsoleApp1
             //if placeable
             grid[soldier.Position] -= soldier.ID;
         }
+        */
     }
 }

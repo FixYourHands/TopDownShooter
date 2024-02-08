@@ -43,6 +43,7 @@ namespace ConsoleApp1.WarriorFight
             return Math.Sqrt(xDistance * xDistance + yDistance * yDistance); //a^2 +b^2 = c^2
         }
 
+        /*
         public double DistanceTo(Soldier other)
         {
             int xDistance = other.Position.X - X;
@@ -50,6 +51,7 @@ namespace ConsoleApp1.WarriorFight
 
             return Math.Sqrt(xDistance * xDistance + yDistance * yDistance); //a^2 +b^2 = c^2
         }
+        */
 
         public void PrintPosition()
         {
