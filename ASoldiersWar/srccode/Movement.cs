@@ -1,4 +1,5 @@
-﻿using ConsoleApp1.WarriorFight;
+﻿using ASoldiersWar;
+using ConsoleApp1.WarriorFight;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace ConsoleApp1
           Down 
         }
         public Soldier soldier { get; set; }
-        public GameGrid grid { get; set; }
+        public Board grid { get; set; }
         /*
         public Movement(Soldier soldier,GameGrid grid)
         {

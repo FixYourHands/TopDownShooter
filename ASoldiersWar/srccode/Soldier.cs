@@ -38,6 +38,19 @@ namespace ConsoleApp1.WarriorFight
             this.ShootAction = new Shoot(this.Weapon);
         }
 
+        public void PrintPosition()
+        {
+            Console.WriteLine("Position: ({0},{1})", Position.X,Position.Y);
+        }
+        public void SetPosition(float xCoord, float yCoord)
+        {
+            MovePlayerToLocation(xCoord,yCoord);
+        }
+
+        private Vector2 MovePlayerToLocation(float xCoord, float yCoord)
+        {
+            return Position = new Vector2(xCoord, yCoord);
+        }
 
         #region Distance Calculation
         public double GetDistanceToSoldier(Soldier other)
