@@ -21,14 +21,23 @@ namespace ASoldiersWar
 
             Soldier billBod = new Soldier(new AK47("AK-47"));
             Soldier Bob = new Soldier(new AK47("AK-47"));
+            Bob.Initialize(board1);
 
-            board1[Bob.Position].PlaceSoldier(Bob);
+            List<Soldier> soldierList = new List<Soldier>();
+            soldierList.Add(billBod);
+            soldierList.Add(Bob);
+            board1[0, 0].PlaceSoldier(Bob);
 
-            board1[Bob.Position].RemoveSoldier(Bob);
-            billBod.SetPosition(15, 26);
-            board1[billBod.Position].PlaceSoldier(billBod);
-            Console.WriteLine(board1[15,26].Occupied);
-            Console.WriteLine(billBod);
+            Bob.MoveRight();
+            Console.WriteLine(Bob.Movement.GetCurrentTileName());
+            Bob.MoveLeft();
+            Bob.SetPosition(25, 67);
+            Console.WriteLine(Bob.Movement.GetCurrentTileName());
+            Bob.MoveLeft();
+            Bob.MoveLeft();
+            Bob.PrintPosition();
+            Console.WriteLine(board1[0,0].Occupied);
+            Console.WriteLine(Bob.Speed);
         }
     }
 }

@@ -26,8 +26,8 @@ namespace ASoldiersWar
         }
         public Board(int rows, int columns)
         {
-            this.Rows = rows;
-            this.Columns = columns;
+            this.Rows = rows-1;
+            this.Columns = columns-1;
             this.Grid = new Tile[rows, columns];
             Initialize();
         }
@@ -43,6 +43,7 @@ namespace ASoldiersWar
                     indexer.X = i;
                     indexer.Y = j;
                     Grid[i, j].SetPosition(indexer);
+                    Grid[i,j].Name = "Tile " + i.ToString() + j.ToString();
                     //Grid[i, j].PrintPosition();
                 }
             }
