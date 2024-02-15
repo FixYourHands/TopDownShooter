@@ -28,16 +28,7 @@ namespace ASoldiersWar
             soldierList.Add(Bob);
             board1[0, 0].PlaceSoldier(Bob);
 
-            Bob.MoveRight();
-            Console.WriteLine(Bob.Movement.GetCurrentTileName());
-            Bob.MoveLeft();
-            Bob.SetPosition(25, 67);
-            Console.WriteLine(Bob.Movement.GetCurrentTileName());
-            Bob.MoveLeft();
-            Bob.MoveLeft();
-            Bob.PrintPosition();
-            Console.WriteLine(board1[0,0].Occupied);
-            Console.WriteLine(Bob.Speed);
+            Bob.MoveRightIndefinitely();
         }
     }
 }

@@ -19,8 +19,8 @@ namespace ConsoleApp1.WarriorFight
         public  Weapon Weapon { get; set; }
         public float Speed { get; set; }
         public int ID { get; }
-
-        public EnemyMovement Movement { get; set; }
+        public EnemyPosition Position { get; set; }
+        public EnemyMovement EnemyMovement { get; set; }
 
         public Soldier(Weapon weapon, string name = "Soldier", int health = 100, int armorRating = 0, double accuracyRating = 1.0)
         {
@@ -39,53 +39,66 @@ namespace ConsoleApp1.WarriorFight
             this.ID = 1; // Implement GenerateUniqueID() to ensure unique IDs
             this.ShootAction = new Shoot(this.Weapon);
             this.Speed = 2.0f;
+            
         }
 
         public void Initialize(Board gameBoard)
         {
-            this.Movement = new EnemyMovement(new Vector2(), Speed, gameBoard);
+            this.Position = new EnemyPosition(new Vector2(), Speed, gameBoard);
+            this.EnemyMovement = new EnemyMovement(Position);
+
         }
 
         public void MoveRight()
         {
-            Movement.MoveRight();
+            Position.MoveRight();
+        }
+
+        public void MoveRightIndefinitely()
+        {
+            EnemyMovement.TraverseRight();
         }
         public void MoveLeft()
         {
-            Movement.MoveLeft();
+            Position.MoveLeft();
         }
         public void MoveUp()
         {
-            Movement.MoveUp();
+            Position.MoveUp();
         }
         public void MoveDown()
         {
-            Movement.MoveDown();
+            Position.MoveDown();
         }
         public void PrintPosition()
         {
-            Console.WriteLine("Position: ({0},{1})", Movement.SoldierPosition.X,Movement.SoldierPosition.Y);
+            Position.PrintPosition();
         }
         public void SetPosition(float xCoord, float yCoord)
         {
             MovePlayerToLocation(xCoord,yCoord);
         }
 
+        public void SetPosition(Vector2 coordinates)
+        {
+            MovePlayerToLocation(coordinates.X, coordinates.Y);
+        }
+
         private Vector2 MovePlayerToLocation(float xCoord, float yCoord)
         {
-            return Movement.SoldierPosition = new Vector2(xCoord, yCoord);
+            return Position.SoldierPosition = new Vector2(xCoord, yCoord);
         }
 
         #region Distance Calculation
         public double GetDistanceToSoldier(Soldier other)
         {
-            return CalculateDistanceToVector2(other.Movement.SoldierPosition);
+            return CalculateDistanceToVector2(other.Position.SoldierPosition);
         }
 
         private double CalculateDistanceToVector2(Vector2 p2)
         {
             //d = sqrt((y2-y1)^2+(x2-x1)^2)
-            double distance = Math.Sqrt(Math.Pow(p2.Y- Movement.SoldierPosition.Y, 2) + Math.Pow(p2.X-Movement.SoldierPosition.X, 2));
+            double distance = Math.Sqrt(Math.Pow(p2.Y- Position.SoldierPosition.Y, 2) + Math.Pow(p2.X-Position.SoldierPosition.X, 2));
             return distance;
         }
         #endregion

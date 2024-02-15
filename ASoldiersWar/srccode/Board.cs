@@ -32,6 +32,7 @@ namespace ASoldiersWar
             Initialize();
         }
 
+        //sets the name of all the tiles in the board
         private void Initialize()
         {
             Vector2 indexer = new Vector2(0, 0);
@@ -49,12 +50,5 @@ namespace ASoldiersWar
             }
         }
 
-        static void MoveUnit(Soldier soldier, Board gameBoard)
-        {
-            gameBoard.Grid[(int)soldier.Position.X, (int)soldier.Position.Y].RemoveSoldier(soldier);
-            soldier.Position += new Vector2(5, 10);
-            gameBoard.Grid[(int)soldier.Position.X, (int)soldier.Position.Y].PlaceSoldier(soldier);
-            Console.WriteLine("Position: ({0},{1})", soldier.Position.X, soldier.Position.Y);
-        }
     }
 }

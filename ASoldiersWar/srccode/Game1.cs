@@ -12,6 +12,8 @@ namespace ASoldiersWar
         bool keyReleased = true;
         Soldier soldier1 = new Soldier(new AK47());
         Soldier billyBob = new Soldier(new AK47());
+        Board board = new Board(1000, 1000);
+        
         Texture2D mySprite;
         
      
@@ -27,7 +29,8 @@ namespace ASoldiersWar
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            billyBob.Position = new Vector2(300, 300);
+            billyBob.Initialize(board);
+           billyBob.Position.SoldierPosition = new Vector2(150, 300);
 
             base.Initialize();
         }
@@ -50,7 +53,7 @@ namespace ASoldiersWar
          
             if (state.IsKeyDown(Keys.Up) && keyReleased)
             {
-                soldier1.Position += new Vector2(0, -1);
+                soldier1.Position.SoldierPosition += new Vector2(0, -1);
                 soldier1.PrintPosition();
                 System.Console.WriteLine(soldier1.GetDistanceToSoldier(billyBob));
                 keyReleased = false;
@@ -58,21 +61,21 @@ namespace ASoldiersWar
 
             if (state.IsKeyDown(Keys.Down) && keyReleased)
             {
-                soldier1.Position += new Vector2(0, 1);
+                soldier1.Position.SoldierPosition += new Vector2(0, 1);
                 soldier1.PrintPosition();
                 keyReleased = false;
             }
 
             if (state.IsKeyDown(Keys.Left) && keyReleased)
             {
-                soldier1.Position += new Vector2(-1,0) * soldier1.Speed;
+                soldier1.Position.SoldierPosition += new Vector2(-1,0) * soldier1.Speed;
                 soldier1.PrintPosition();
                 keyReleased=false;
             }
 
             if (state.IsKeyDown(Keys.Right) && keyReleased)
             {
-                soldier1.Position += new Vector2(1, 0);
+                soldier1.Position.SoldierPosition += new Vector2(1, 0);
                 soldier1.PrintPosition();
                 System.Console.WriteLine(soldier1.GetDistanceToSoldier(billyBob));
                 keyReleased =false;
@@ -89,8 +92,8 @@ namespace ASoldiersWar
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            _spriteBatch.Draw(mySprite, new Rectangle((int)soldier1.Position.X,(int)soldier1.Position.Y,100,100), Color.White);
-            _spriteBatch.Draw(mySprite, new Rectangle((int)billyBob.Position.X, (int)billyBob.Position.Y, 100, 100), Color.White);
+            //_spriteBatch.Draw(mySprite, new Rectangle((int)soldier1.Position.SoldierPosition.X,(int)soldier1.Position.SoldierPosition.Y,100,100), Color.White);
+            _spriteBatch.Draw(mySprite, new Rectangle((int)billyBob.Position.SoldierPosition.X, (int)billyBob.Position.SoldierPosition.Y, 100, 100), Color.White);
 
 
 
