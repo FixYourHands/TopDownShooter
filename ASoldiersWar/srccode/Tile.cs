@@ -20,7 +20,7 @@ namespace ASoldiersWar
 
         public Tile()
         {
-            Name = "Tile " + TileCounter.ToString();
+            Name = "Tile : " + TileCounter.ToString();
             TileCounter++;
             Soldiers = new List<Soldier>();
             Position = new Vector2(0, 0);

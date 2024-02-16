@@ -12,7 +12,7 @@ namespace ASoldiersWar
     {
         public int Rows { get; }
         public int Columns { get; }
-        private Tile[,] Grid;
+        private readonly Tile[,] Grid;
         public Tile this[Vector2 position]
         {
             get => Grid[(int)position.Y, (int)position.X];
@@ -36,15 +36,15 @@ namespace ASoldiersWar
         private void Initialize()
         {
             Vector2 indexer = new Vector2(0, 0);
-            for (int i = 0; i < 101; i++)
+            for (int i = 0; i < Rows+1; i++)
             {
-                for (int j = 0; j < 101; j++)
+                for (int j = 0; j < Columns+1; j++)
                 {
                     Grid[i, j] = new Tile();
-                    indexer.X = i;
-                    indexer.Y = j;
+                    indexer.Y = i;
+                    indexer.X = j;
                     Grid[i, j].SetPosition(indexer);
-                    Grid[i,j].Name = "Tile " + i.ToString() + j.ToString();
+                    //Grid[i,j].Name = "Tile " + i.ToString() + j.ToString();
                     //Grid[i, j].PrintPosition();
                 }
             }

@@ -44,31 +44,32 @@ namespace ConsoleApp1.WarriorFight
 
         public void Initialize(Board gameBoard)
         {
-            this.Position = new EnemyPosition(new Vector2(), Speed, gameBoard);
-            this.EnemyMovement = new EnemyMovement(Position);
+            this.Position = new EnemyPosition(new Vector2(), gameBoard);
+            this.EnemyMovement = new EnemyMovement(Position,Speed);
 
         }
-
+        #region Movement
         public void MoveRight()
         {
-            Position.MoveRight();
+            EnemyMovement.Move(EnemyMovement.Direction.Right);
         }
 
         public void MoveRightIndefinitely()
         {
-            EnemyMovement.TraverseRight();
+            EnemyMovement.MoveSoldierToBoundary(EnemyMovement.Direction.Right);
+            
         }
         public void MoveLeft()
         {
-            Position.MoveLeft();
+            EnemyMovement.Move(EnemyMovement.Direction.Left);
         }
         public void MoveUp()
         {
-            Position.MoveUp();
+            EnemyMovement.Move(EnemyMovement.Direction.Up);
         }
         public void MoveDown()
         {
-            Position.MoveDown();
+            EnemyMovement.Move(EnemyMovement.Direction.Down);
         }
         public void PrintPosition()
         {
@@ -76,31 +77,27 @@ namespace ConsoleApp1.WarriorFight
         }
         public void SetPosition(float xCoord, float yCoord)
         {
-            MovePlayerToLocation(xCoord,yCoord);
+            EnemyMovement.MoveSoldierToCoordinates(xCoord, yCoord);
         }
 
         public void SetPosition(Vector2 coordinates)
         {
-            MovePlayerToLocation(coordinates.X, coordinates.Y);
+            EnemyMovement.MoveSoldierToCoordinates(coordinates.X,coordinates.Y);
         }
-
-        private Vector2 MovePlayerToLocation(float xCoord, float yCoord)
-        {
-            return Position.SoldierPosition = new Vector2(xCoord, yCoord);
-        }
+        #endregion
 
         #region Distance Calculation
         public double GetDistanceToSoldier(Soldier other)
         {
-            return CalculateDistanceToVector2(other.Position.SoldierPosition);
+            return Position.GetDistanceToSoldier(other.Position.SoldierPosition.X,other.Position.SoldierPosition.Y);
         }
 
-        private double CalculateDistanceToVector2(Vector2 p2)
+        public double GetDistanceToSoldier(Vector2 coord)
         {
-            //d = sqrt((y2-y1)^2+(x2-x1)^2)
-            double distance = Math.Sqrt(Math.Pow(p2.Y- Position.SoldierPosition.Y, 2) + Math.Pow(p2.X-Position.SoldierPosition.X, 2));
-            return distance;
+            return Position.GetDistanceToSoldier(coord.X,coord.Y);
         }
+
+
         #endregion
     }
 }
