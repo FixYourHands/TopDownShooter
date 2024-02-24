@@ -11,10 +11,12 @@ namespace ASoldiersWar
     public class Tile
     {
         private static int TileCounter = 0;
+        private bool occupiedStatus;
         public string Name { get; set; }
-        public bool Occupied { get; set; } = false;
+        public int ColumnNumber { get; set; }
+        public int RowNumber { get; set; }
 
-        public Vector2 Position { get; set; }
+        private Vector2 position;
 
         public List<Soldier> Soldiers { get; set; }
 
@@ -23,37 +25,56 @@ namespace ASoldiersWar
             Name = "Tile : " + TileCounter.ToString();
             TileCounter++;
             Soldiers = new List<Soldier>();
-            Position = new Vector2(0, 0);
+            this.position = new Vector2(0, 0);
+            this.occupiedStatus = false;
         }
-
+        #region Place/Remove Soldier
         public void PlaceSoldier(Soldier soldier)
         {
             //maybe have a max count
             Soldiers.Add(soldier);
-            Occupied = true;
+            occupiedStatus = true;
         }
 
         public void RemoveSoldier(Soldier soldier)
         {
-            Soldiers.Remove(soldier);
+            if (!Soldiers.Remove(soldier))
+            {
+                Console.WriteLine("Soldier not found!");
+            }
+            
             if (Soldiers.Count == 0)
             {
-                Occupied = false;
+                occupiedStatus = false;
             }
         }
 
+        #endregion
+
+        #region Set Tile Position
         public void SetPosition(Vector2 coordinates)
         {
-            this.Position = coordinates;
+            this.position = coordinates;
         }
 
         public void SetPosition(float xCoord, float yCoord)
         {
-            Position = new Vector2(xCoord, yCoord);
+            this.position = new Vector2(xCoord, yCoord);
         }
+        #endregion
         public void PrintPosition()
         {
-            Console.WriteLine("Coordinates: ({0},{1})", Position.X, Position.Y);
+            Console.WriteLine("Coordinates: ({0},{1})", position.X, position.Y);
+        }
+
+        public static void PrintTileInfo(Tile tile)
+        {
+            tile.PrintPosition();
+        }
+
+        public bool GetOccupiedStatus()
+        {
+            return this.occupiedStatus;
         }
     }
 }

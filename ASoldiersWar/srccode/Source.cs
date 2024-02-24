@@ -11,6 +11,40 @@ namespace ASoldiersWar
     
     public class Source
     {
+        public static void TestFunc(Soldier s1, Soldier s2, float distance)
+        {
+            while (CheckDistanceGreaterThan(s1,s2,distance))
+            {
+                Console.WriteLine(s1.GetDistanceToSoldier(s2));
+                s1.MoveRight();
+                
+                
+            }
+            s1.PrintPosition();
+            s2.PrintPosition();
+        }
+
+        public static bool CheckDistanceLessThan(Soldier s1, Soldier s2, float distance)
+        {
+            if (s1.GetDistanceToSoldier(s2) < distance)
+                return true;
+            return false;
+        }
+
+        public static bool CheckDistanceGreaterThan(Soldier s1, Soldier s2, float distance)
+        {
+            if (s1.GetDistanceToSoldier(s2) > distance)
+                return true;
+            return false;
+        }
+
+        public static bool CheckDistanceEqualTo(Soldier s1, Soldier s2, float distance)
+        {
+            if (s1.GetDistanceToSoldier(s2) == distance)
+                return true;
+            return false;
+        }
+
         public static void Manipulate(EnemyMovement pos1, Soldier pos2)
         {
             pos1.MoveSoldierToBoundary(EnemyMovement.Direction.Right);
@@ -35,13 +69,17 @@ namespace ASoldiersWar
             Bob.Initialize(board1);
             billBod.Initialize(board1);
 
-            board1[26, 50].PlaceSoldier(Bob);
-            Bob.SetPosition(0, 0);
-            billBod.SetPosition(100, 00);
 
-            Manipulate(Bob.EnemyMovement, billBod);
 
-            
+            Bob.SetPosition(44, 58);
+            Bob.PrintPosition();
+            Console.WriteLine(board1.GetSoldierTile(Bob).ColumnNumber);
+            Console.WriteLine(board1.GetSoldierTile(billBod).ColumnNumber);
+
+            billBod.SetPosition(44, 56);
+            Bob.Movement.CheckAreaAboveSoldier();
+
+            Console.WriteLine(board1[44,58].GetOccupiedStatus());
         }
     }
 }

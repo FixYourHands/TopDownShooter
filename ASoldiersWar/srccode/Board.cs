@@ -15,14 +15,14 @@ namespace ASoldiersWar
         private readonly Tile[,] Grid;
         public Tile this[Vector2 position]
         {
-            get => Grid[(int)position.Y, (int)position.X];
-            set => Grid[(int)position.Y, (int)position.X] = value;
+            get => Grid[(int)position.X, (int)position.Y];
+            set => Grid[(int)position.X, (int)position.Y] = value;
         }
 
-        public Tile this[int row, int column]
+        public Tile this[int xCoord, int yCoord]
         {
-            get => Grid[row, column];
-            set => Grid[(int)row, (int)column] = value;
+            get => Grid[xCoord, yCoord];
+            set => Grid[(int)xCoord, (int)yCoord] = value;
         }
         public Board(int rows, int columns)
         {
@@ -36,19 +36,25 @@ namespace ASoldiersWar
         private void Initialize()
         {
             Vector2 indexer = new Vector2(0, 0);
-            for (int i = 0; i < Rows+1; i++)
+            for (int y = 0; y < Rows+1; y++)
             {
-                for (int j = 0; j < Columns+1; j++)
+                for (int x = 0; x < Columns+1; x++)
                 {
-                    Grid[i, j] = new Tile();
-                    indexer.Y = i;
-                    indexer.X = j;
-                    Grid[i, j].SetPosition(indexer);
+                    Grid[x, y] = new Tile();
+                    indexer.Y = y;
+                    indexer.X = x;
+                    Grid[x, y].SetPosition(indexer);
+                    Grid[x, y].ColumnNumber = x;
+                    Grid[x, y].RowNumber = y;
                     //Grid[i,j].Name = "Tile " + i.ToString() + j.ToString();
                     //Grid[i, j].PrintPosition();
                 }
             }
         }
 
+        public Tile GetSoldierTile(Soldier soldier)
+        {
+            return this[soldier.Position.CurrentPosition];
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace ConsoleApp1.WarriorFight
     {
         public AK47(string name = "AK-47",int magSize = 30, int reserves = 240)
         {
-            this.name = name;
+            this.Name = name;
             MAX_MAGAZINE_SIZE = magSize;
             currentMagazine = magSize;
             reserveMagazine = reserves;

@@ -10,7 +10,7 @@ namespace ConsoleApp1.WarriorFight
     public abstract class Weapon
     {
         public int MAX_MAGAZINE_SIZE { get; set; }
-        public string? name { get; set; }
+        public string Name { get; set; }
         public int currentMagazine { get; set; }
         public int reserveMagazine { get; set; }
         public bool magazineEmpty { get; set; }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ConsoleApp1.WarriorFight;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +17,27 @@ namespace ASoldiersWar
             Up,
             Down
         }
+        private int currentColumn;
+        private int currentRow;
         private float Speed { get; set; }
-        public EnemyPosition Position { get; set; }
+        public SoldierPosition Position { get; set; }
+        public Soldier Soldier { get; set; }
         public Direction CurrentFacingDirection { get; set; }
-        public EnemyMovement(EnemyPosition position, float actorSpeed)
+        public EnemyMovement(SoldierPosition position, float actorSpeed)
         {
             this.Position = position;
             this.Speed = actorSpeed;
             this.CurrentFacingDirection = Direction.Down;
+        }
+
+        public EnemyMovement(Soldier soldier)
+        {
+            this.Soldier = soldier;
+            this.Position = soldier.Position;
+            this.Speed = soldier.Speed;
+            this.CurrentFacingDirection = Direction.Down;
+
+            Position.AddSoldierToTile(soldier);
         }
 
         public void Move(Direction direction)
@@ -33,19 +47,19 @@ namespace ASoldiersWar
                 switch (direction)
                 {
                     case Direction.Left:
-                        Position.SoldierPosition += new Vector2(-1, 0) * Speed;
+                        Position.CurrentPosition += new Vector2(-1, 0) * Speed;
                         CurrentFacingDirection = Direction.Left;
                         break;
                     case Direction.Right:
-                        Position.SoldierPosition += new Vector2(1, 0) * Speed;
+                        Position.CurrentPosition += new Vector2(1, 0) * Speed;
                         CurrentFacingDirection=Direction.Right;
                         break;
                     case Direction.Up:
-                        Position.SoldierPosition += new Vector2(0, -1) * Speed;
+                        Position.CurrentPosition += new Vector2(0, -1) * Speed;
                         CurrentFacingDirection = Direction.Up;
                         break;
                     case Direction.Down:
-                        Position.SoldierPosition += new Vector2(0, 1) * Speed;
+                        Position.CurrentPosition += new Vector2(0, 1) * Speed;
                         CurrentFacingDirection = Direction.Down;
                         break;
                 }
@@ -56,33 +70,34 @@ namespace ASoldiersWar
             }
         }
 
+        //perhaps insert while and checklogic (CheckNegative) to decide when to stop
         public void MoveSoldierToBoundary(Direction direction)
         {
             switch (direction)
             {
                 case Direction.Left:
-                    while (Position.SoldierPosition.X > 0 && IsPositionValid(Direction.Left))
+                    while (Position.CurrentPosition.X > 0 && IsPositionValid(Direction.Left))
                     {
                         Move(Direction.Left);
                         //perhaps insert collide with other object logic here
                     }
                     break;
                 case Direction.Right:
-                    while (Position.SoldierPosition.X < Position.Board.Columns && IsPositionValid(Direction.Right))
+                    while (Position.CurrentPosition.X < Position.Board.Columns && IsPositionValid(Direction.Right))
                     {
                         Move(Direction.Right);
                         //perhaps insert collide with other object logic here
                     }
                     break;
                 case Direction.Up:
-                    while (Position.SoldierPosition.Y > 0 && IsPositionValid(Direction.Up))
+                    while (Position.CurrentPosition.Y > 0 && IsPositionValid(Direction.Up))
                     {
                         Move(Direction.Up);
                         //perhaps insert collide with other object logic here
                     }
                     break;
                 case Direction.Down:
-                    while (Position.SoldierPosition.Y < Position.Board.Rows && IsPositionValid(Direction.Down))
+                    while (Position.CurrentPosition.Y < Position.Board.Rows && IsPositionValid(Direction.Down))
                     {
                         Move(Direction.Down);
                         //perhaps insert collide with other object logic here
@@ -100,7 +115,8 @@ namespace ASoldiersWar
 
         public void MoveSoldierToCoordinates(float xCoord, float yCoord)
         {
-            Position.SoldierPosition = new Vector2(xCoord, yCoord);
+            Position.CurrentPosition = new Vector2(xCoord, yCoord);
+            Position.AddSoldierToTile(Soldier);
         }
 
 
@@ -109,25 +125,26 @@ namespace ASoldiersWar
             switch (direction)
             {
                 case Direction.Left:
-                    if (Position.SoldierPosition.X > 0)
+                    if (Position.CurrentPosition.X > 0)
                     {
                         return true;
                     }
                     break;
                 case Direction.Right:
-                    if (Position.SoldierPosition.X < Position.Board.Columns && ((int)(Position.SoldierPosition.X + (1 * Speed)) <= Position.Board.Columns))
+                    if (Position.CurrentPosition.X < Position.Board.Columns)
                     {
+                        Console.WriteLine("Columns {0}",Position.Board.Columns);
                         return true;
                     }
                     break;
                 case Direction.Up:
-                    if (Position.SoldierPosition.Y > 0)
+                    if (Position.CurrentPosition.Y > 0)
                     {
                         return true;
                     }
                     break;
                 case Direction.Down:
-                    if (Position.SoldierPosition.Y < Position.Board.Rows)
+                    if (Position.CurrentPosition.Y < Position.Board.Rows)
                     {
                         return true;
                     }
@@ -135,6 +152,33 @@ namespace ASoldiersWar
             }
             Console.WriteLine("Movement failed!");
             return false;
+        }
+
+        public void CheckAreaAboveSoldier()
+        {
+            Vector2 comp = Position.CurrentPosition;
+            UpdateColumnsAndRows();
+            //check 4x4 area around Soldier
+            if (Position.Board[Position.CurrentPosition].RowNumber >= 3)
+            {
+                for (int i = 1; i < 3 + 1; i++) //i < SoldierVisionWidth (3)
+                {
+                    comp = new Vector2(comp.X, comp.Y-1);
+                    if (Position.Board[comp].GetOccupiedStatus())
+                    {
+                        Console.Write("Tile Occupied! ");
+                        Position.Board[comp].PrintPosition();
+                        break;
+                    }
+                    
+                }
+            }
+        }
+
+        private void UpdateColumnsAndRows()
+        {
+            this.currentRow = Position.Board[Position.CurrentPosition].RowNumber;
+            this.currentColumn = Position.Board[Position.CurrentPosition].ColumnNumber;
         }
     }
 }

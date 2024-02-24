@@ -11,7 +11,7 @@ namespace ConsoleApp1.WarriorFight
         public int specialData { get; set; }
         public M240B(string name = "M240B", int magSize = 100, int reserves = 400)
         {
-            this.name = name;
+            this.Name = name;
             MAX_MAGAZINE_SIZE = magSize;
             currentMagazine = magSize;
             reserveMagazine = reserves;

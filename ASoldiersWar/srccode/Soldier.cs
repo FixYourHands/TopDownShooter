@@ -19,8 +19,8 @@ namespace ConsoleApp1.WarriorFight
         public  Weapon Weapon { get; set; }
         public float Speed { get; set; }
         public int ID { get; }
-        public EnemyPosition Position { get; set; }
-        public EnemyMovement EnemyMovement { get; set; }
+        public SoldierPosition Position { get; set; }
+        public EnemyMovement Movement { get; set; }
 
         public Soldier(Weapon weapon, string name = "Soldier", int health = 100, int armorRating = 0, double accuracyRating = 1.0)
         {
@@ -44,52 +44,68 @@ namespace ConsoleApp1.WarriorFight
 
         public void Initialize(Board gameBoard)
         {
-            this.Position = new EnemyPosition(new Vector2(), gameBoard);
-            this.EnemyMovement = new EnemyMovement(Position,Speed);
+            this.Position = new SoldierPosition(new Vector2(), gameBoard);
+            //this.EnemyMovement = new EnemyMovement(Position,Speed);
+            this.Movement = new EnemyMovement(GetInstanceOfClass());
 
         }
         #region Movement
         public void MoveRight()
         {
-            EnemyMovement.Move(EnemyMovement.Direction.Right);
+            Movement.Move(EnemyMovement.Direction.Right);
         }
 
         public void MoveRightIndefinitely()
         {
-            EnemyMovement.MoveSoldierToBoundary(EnemyMovement.Direction.Right);
+            Movement.MoveSoldierToBoundary(EnemyMovement.Direction.Right);
             
         }
         public void MoveLeft()
         {
-            EnemyMovement.Move(EnemyMovement.Direction.Left);
+            Movement.Move(EnemyMovement.Direction.Left);
         }
         public void MoveUp()
         {
-            EnemyMovement.Move(EnemyMovement.Direction.Up);
+            Movement.Move(EnemyMovement.Direction.Up);
         }
         public void MoveDown()
         {
-            EnemyMovement.Move(EnemyMovement.Direction.Down);
+            Movement.Move(EnemyMovement.Direction.Down);
         }
+        #endregion
+
+        public void Update()
+        {
+            MoveDown();
+            MoveRight();
+            MoveRight();
+            MoveDown();
+            MoveLeft();
+            PrintPosition();
+        }
+
+        #region Position
         public void PrintPosition()
         {
             Position.PrintPosition();
         }
         public void SetPosition(float xCoord, float yCoord)
         {
-            EnemyMovement.MoveSoldierToCoordinates(xCoord, yCoord);
+            Movement.Position.RemoveSoldierFromTile(GetInstanceOfClass());
+            Movement.MoveSoldierToCoordinates(xCoord, yCoord);
+            Movement.Position.AddSoldierToTile(GetInstanceOfClass());
         }
 
         public void SetPosition(Vector2 coordinates)
         {
-            EnemyMovement.MoveSoldierToCoordinates(coordinates.X,coordinates.Y);
+            Movement.MoveSoldierToCoordinates(coordinates.X,coordinates.Y);
         }
         #endregion
 
         #region Distance Calculation
         public double GetDistanceToSoldier(Soldier other)
         {
-            return Position.GetDistanceToSoldier(other.Position.SoldierPosition.X,other.Position.SoldierPosition.Y);
+            return Position.GetDistanceToSoldier(other.Position.CurrentPosition.X,other.Position.CurrentPosition.Y);
         }
 
         public double GetDistanceToSoldier(Vector2 coord)
@@ -99,5 +115,9 @@ namespace ConsoleApp1.WarriorFight
 
 
         #endregion
+        private Soldier GetInstanceOfClass() //class returns itself
+        {
+            return this;
+        }
     }
 }
