@@ -9,6 +9,7 @@ namespace ASoldiersWar
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private GameManager _gameManager;
         bool keyReleased = true;
         Soldier soldier1 = new Soldier(new AK47());
         Soldier billyBob = new Soldier(new AK47());
@@ -31,6 +32,8 @@ namespace ASoldiersWar
             // TODO: Add your initialization logic here
             billyBob.Initialize(board);
            billyBob.Position.CurrentPosition = new Vector2(150, 300);
+            Globals.Content = Content;
+            _gameManager = new GameManager();
 
             base.Initialize();
         }
@@ -38,7 +41,7 @@ namespace ASoldiersWar
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            mySprite = Content.Load<Texture2D>("Assets\\testSprite");
+            Globals.SpriteBatch = _spriteBatch;
 
 
             // TODO: use this.Content to load your game content here
@@ -82,7 +85,9 @@ namespace ASoldiersWar
             }
             keyReleased = true;
             // TODO: Add your update logic here
-            billyBob.Update();
+            // billyBob.Update();
+            Globals.Update(gameTime);
+            _gameManager.Update();
 
             base.Update(gameTime);
         }
@@ -93,13 +98,13 @@ namespace ASoldiersWar
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            //_spriteBatch.Draw(mySprite, new Rectangle((int)soldier1.Position.SoldierPosition.X,(int)soldier1.Position.SoldierPosition.Y,100,100), Color.White);
-            _spriteBatch.Draw(mySprite, new Rectangle((int)billyBob.Position.CurrentPosition.X, (int)billyBob.Position.CurrentPosition.Y, 100, 100), Color.White);
-
+            _gameManager.Draw();
+            //_spriteBatch.Draw(mySprite, new Rectangle((int)billyBob.Position.CurrentPosition.X, (int)billyBob.Position.CurrentPosition.Y, 100, 100), Color.White);
+            _spriteBatch.End();
 
 
             base.Draw(gameTime);
-            _spriteBatch.End();
+
         }
     }
 }
