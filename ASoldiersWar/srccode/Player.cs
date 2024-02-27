@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ASoldiersWar
 {
-    public class Player : Sprite
+    public class Player : MovingSprite
     {
         public Player(Texture2D texture, Vector2 pos) : base(texture,pos)
         {

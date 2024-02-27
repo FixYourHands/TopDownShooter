@@ -12,7 +12,7 @@ namespace ASoldiersWar
         private readonly Player _player;
         public GameManager()
         {
-            _player = new Player(Globals.Content.Load<Texture2D>("Assets\\testSprite"), new(200, 200));
+            _player = new Player(Globals.Content.Load<Texture2D>("Assets\\ak47idleSheet"), new(200, 200));
 
         }
 

@@ -444,3 +444,5 @@ F:\Programming\Github\TopDownShooter\ASoldiersWar\srccode\bin\Debug\net6.0\Conte
 F:\Programming\Github\TopDownShooter\ASoldiersWar\srccode\bin\Debug\net6.0\Content\Assets\sprites\shotgun\shoot\survivor-shoot_shotgun_1.xnb
 F:\Programming\Github\TopDownShooter\ASoldiersWar\srccode\bin\Debug\net6.0\Content\Assets\sprites\shotgun\shoot\survivor-shoot_shotgun_2.xnb
 F:\Programming\Github\TopDownShooter\ASoldiersWar\srccode\bin\Debug\net6.0\Content\Assets\testSprite.xnb
+F:\Programming\Github\TopDownShooter\ASoldiersWar\srccode\bin\Debug\net6.0\Content\Assets\Untitled.xnb
+F:\Programming\Github\TopDownShooter\ASoldiersWar\srccode\bin\Debug\net6.0\Content\Assets\ak47idleSheet.xnb

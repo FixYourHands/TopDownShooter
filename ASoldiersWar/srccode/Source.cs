@@ -76,7 +76,8 @@ namespace ASoldiersWar
             Console.WriteLine(board1.GetSoldierTile(Bob).ColumnNumber);
             Console.WriteLine(board1.GetSoldierTile(billBod).ColumnNumber);
 
-            billBod.SetPosition(44, 56);
+            billBod.SetPosition(Vector2.One);
+            billBod.PrintPosition();
             Bob.Movement.CheckAreaAboveSoldier();
 
             Console.WriteLine(board1[44,58].GetOccupiedStatus());
